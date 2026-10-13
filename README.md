@@ -1,1 +1,1228 @@
-# my-website
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff5fb">
+<title>Color of My Day ✨ 每一天都有自己的顏色</title>
+<style>
+:root {
+  --pink: #ffb8d2;
+  --purple: #c9b7ff;
+  --blue: #b9e7ff;
+  --yellow: #fff0a9;
+  --ink: #665776;
+  --muted: #988aa6;
+  --glass: rgba(255,255,255,.76);
+  --line: rgba(193,165,214,.26);
+  --shadow: 0 12px 36px rgba(151,118,179,.12);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Nunito", "PingFang TC", "Microsoft JhengHei",
+    "Noto Sans TC", sans-serif;
+  background:
+    radial-gradient(ellipse at 8% 8%, #ffe4f0 0, transparent 32%),
+    radial-gradient(ellipse at 90% 22%, #e4e5ff 0, transparent 30%),
+    radial-gradient(ellipse at 50% 78%, #e4f7ff 0, transparent 36%),
+    linear-gradient(150deg, #fff8fc, #f8f6ff 52%, #f1fbff);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible,
+select:focus-visible, a:focus-visible {
+  outline: 3px solid #ad91ed;
+  outline-offset: 3px;
+}
+a { color: inherit; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+::selection { background: #f8cce3; color: #614a79; }
+.topbar {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px max(18px, calc((100vw - 1120px)/2));
+  background: rgba(255,250,255,.84);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(211,186,224,.3);
+}
+.brand {
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: -.4px;
+  color: #9478c5;
+  white-space: nowrap;
+}
+.brand span { color: #ed91bd; }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.nav a {
+  text-decoration: none;
+  font-size: .86rem;
+  font-weight: 800;
+  color: #81718f;
+  white-space: nowrap;
+}
+.nav a:hover { color: #df80b1; }
+.menu-btn {
+  display: none;
+  border: 0;
+  background: #fff;
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 9px 12px;
+}
+.container { width: min(1040px, calc(100% - 32px)); margin: auto; }
+.hero {
+  position: relative;
+  min-height: 570px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 16px 65px;
+  overflow: hidden;
+}
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.hero::before {
+  width: 230px; height: 230px;
+  background: #ffe6f3;
+  left: -105px; top: 75px; opacity: .65;
+}
+.hero::after {
+  width: 260px; height: 260px;
+  background: #e6e3ff;
+  right: -115px; bottom: 12px; opacity: .7;
+}
+.hero-content { position: relative; z-index: 1; max-width: 760px; }
+.eyebrow {
+  display: inline-block;
+  padding: 8px 15px;
+  background: rgba(255,255,255,.8);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: .83rem;
+  letter-spacing: 1px;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 8vw, 5.8rem);
+  line-height: 1.08;
+  margin: 24px 0 16px;
+  letter-spacing: -3px;
+  font-weight: 1000;
+  background: linear-gradient(100deg, #f39bc2, #a996e9 52%, #83c9e9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p { font-size: clamp(1rem, 2.8vw, 1.25rem); color: #8d7b9c; line-height: 1.9; }
+.hero .subline { font-size: .9rem; color: #aa99b6; }
+.primary-btn, .secondary-btn, .small-btn {
+  border: 0;
+  border-radius: 999px;
+  font-weight: 900;
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+.primary-btn {
+  color: #fff;
+  padding: 15px 28px;
+  background: linear-gradient(110deg, #f5a7cb, #b5a0f1);
+  box-shadow: 0 9px 24px rgba(200,144,202,.3);
+}
+.primary-btn:hover, .secondary-btn:hover, .small-btn:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+.primary-btn:active { transform: scale(.98); }
+.secondary-btn {
+  padding: 11px 17px;
+  color: #8d6bb4;
+  background: #f5efff;
+  border: 1px solid #e5d8fa;
+}
+.small-btn {
+  padding: 9px 13px;
+  color: #8a719d;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: .85rem;
+}
+.decor {
+  position: absolute;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  animation: float 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+.d1 { left: 10%; top: 22%; }
+.d2 { right: 12%; top: 17%; animation-delay: -1.5s; }
+.d3 { left: 17%; bottom: 19%; animation-delay: -2s; }
+.d4 { right: 17%; bottom: 21%; animation-delay: -.8s; }
+.d5 { left: 29%; top: 13%; animation-delay: -3s; font-size: 1rem; }
+.d6 { right: 30%; bottom: 13%; animation-delay: -2.5s; }
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-13px) rotate(6deg); }
+}
+@keyframes twinkle {
+  0%,100% { opacity: .55; transform: scale(.9); }
+  50% { opacity: 1; transform: scale(1.16); }
+}
+.section { padding: 48px 0 38px; }
+.section-head { text-align: center; margin-bottom: 26px; }
+.section-head h2 { font-size: clamp(1.55rem, 4vw, 2.1rem); margin: 0 0 9px; }
+.section-head p { color: var(--muted); margin: 0; line-height: 1.8; }
+.card {
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,.92);
+  box-shadow: var(--shadow);
+  border-radius: 25px;
+  padding: clamp(18px, 4vw, 30px);
+  backdrop-filter: blur(15px);
+}
+.privacy-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 18px auto;
+  padding: 15px 17px;
+  border: 1px solid #eeddf7;
+  border-radius: 18px;
+  background: rgba(255,255,255,.7);
+  font-size: .88rem;
+  line-height: 1.8;
+  color: #7c6b8d;
+}
+.privacy-banner .privacy-icon { font-size: 1.35rem; flex: 0 0 auto; }
+.privacy-banner strong { color: #8866a9; }
+.space-panel { margin-bottom: 26px; }
+.space-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+}
+.space-field { flex: 1 1 190px; min-width: 0; }
+label { display: block; font-size: .9rem; font-weight: 850; margin-bottom: 8px; }
+input, textarea, select {
+  width: 100%;
+  min-width: 0;
+  color: #665776;
+  background: rgba(255,255,255,.92);
+  border: 1px solid #eadff2;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+textarea { resize: vertical; min-height: 110px; line-height: 1.8; }
+input::placeholder, textarea::placeholder { color: #b6a9c0; }
+.helper { font-size: .8rem; color: #a292b0; line-height: 1.7; margin-top: 7px; }
+.section-anchor { scroll-margin-top: 90px; }
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 10px;
+}
+.mood-option {
+  position: relative;
+  padding: 14px 6px;
+  min-height: 76px;
+  border: 1px solid #eee1f2;
+  background: rgba(255,255,255,.75);
+  border-radius: 18px;
+  color: #82718e;
+  transition: .2s;
+}
+.mood-option .emoji { display: block; font-size: 1.65rem; margin-bottom: 5px; }
+.mood-option .mood-label { font-size: .88rem; font-weight: 850; }
+.mood-option:hover { transform: translateY(-3px); background: #fff; }
+.mood-option.selected {
+  border: 2px solid #d5a9e8;
+  background: linear-gradient(140deg, #fff0f7, #f0edff);
+  box-shadow: 0 6px 17px rgba(195,151,213,.16);
+}
+.form-group { margin-top: 24px; }
+.range-line { display: flex; align-items: center; gap: 14px; }
+input[type="range"] { padding: 0; accent-color: #cb9be9; border: 0; background: transparent; }
+.range-number {
+  width: 45px; height: 45px; flex: 0 0 45px;
+  border-radius: 15px;
+  background: #f6edff;
+  display: grid; place-items: center;
+  font-size: 1.15rem; font-weight: 950; color: #9b76c4;
+}
+.range-labels { display: flex; justify-content: space-between; font-size: .78rem; color: #a394af; margin-top: 5px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.form-status { min-height: 22px; font-size: .88rem; color: #9879b5; margin-top: 12px; }
+.result { margin-top: 25px; }
+.result-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 285px;
+  padding: 28px;
+  border-radius: 24px;
+  color: #65526f;
+  background: linear-gradient(120deg, var(--c1, #ffd6a5), var(--c2, #ffb5c2));
+  transition: background 1s ease, transform .3s;
+}
+.result-panel::after {
+  content: "✦  ✧  ♡  ✦";
+  position: absolute;
+  right: 12px; bottom: 10px;
+  font-size: 1.8rem;
+  letter-spacing: 9px;
+  opacity: .35;
+  pointer-events: none;
+}
+.result-panel.color-change { animation: colorPop .55s ease; }
+@keyframes colorPop {
+  0% { transform: scale(.985); filter: saturate(.8); }
+  55% { transform: scale(1.01); filter: saturate(1.15); }
+  100% { transform: scale(1); filter: saturate(1); }
+}
+.result-eyebrow { font-size: .83rem; font-weight: 900; letter-spacing: 1px; }
+.result-panel h3 { font-size: clamp(1.7rem, 4vw, 2.5rem); margin: 10px 0; }
+.color-codes {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 9px 13px;
+  background: rgba(255,255,255,.45);
+  border-radius: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .85rem;
+}
+.result-quote { font-size: 1rem; line-height: 1.9; max-width: 650px; }
+.result-meta { font-size: .86rem; opacity: .85; margin-top: 15px; }
+.month-tools { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 17px; }
+.month-tools h3 { margin: 0; font-size: 1.1rem; }
+.month-nav { display: flex; gap: 7px; }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0,1fr));
+  gap: 7px;
+}
+.weekday { text-align: center; color: #a091b0; font-size: .78rem; padding: 8px 0; font-weight: 850; }
+.day-cell {
+  min-width: 0;
+  min-height: 67px;
+  padding: 7px 2px;
+  border-radius: 13px;
+  border: 1px solid rgba(225,213,235,.55);
+  background: rgba(255,255,255,.65);
+  color: #8b7c99;
+  text-align: center;
+  transition: transform .18s, box-shadow .18s;
+}
+.day-cell .day-num { font-size: .82rem; font-weight: 850; }
+.day-cell .day-emoji { display: block; margin-top: 5px; font-size: 1rem; }
+.day-cell.has-entry { border-color: rgba(255,255,255,.95); }
+.day-cell:hover, .day-cell.selected-day { transform: translateY(-2px); box-shadow: 0 5px 12px #bca6ce30; outline: 2px solid #d3b6ee; }
+.day-cell.today { box-shadow: inset 0 0 0 2px #d1b4ed; }
+.day-cell.empty { background: rgba(255,255,255,.32); border-style: dashed; }
+.calendar-detail { margin-top: 17px; min-height: 65px; padding: 15px; border-radius: 16px; background: #fff9ff; line-height: 1.8; }
+.calendar-detail p { margin: 5px 0; overflow-wrap: anywhere; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 13px; color: #a292b0; font-size: .8rem; }
+.legend span { display: flex; align-items: center; gap: 5px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; background: #fff; border: 1px solid #e4d9eb; }
+.diary-list { display: grid; gap: 14px; }
+.diary-entry {
+  border: 1px solid #eee3f4;
+  background: rgba(255,255,255,.8);
+  border-radius: 19px;
+  overflow: hidden;
+}
+.diary-entry summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.diary-entry summary::-webkit-details-marker { display: none; }
+.diary-entry summary::after { content: "＋"; margin-left: auto; color: #a78cc5; font-weight: 900; }
+.diary-entry[open] summary::after { content: "－"; }
+.diary-swatch { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 14px; }
+.diary-title { min-width: 0; flex: 1; }
+.diary-title strong { display: block; }
+.diary-title small { display: block; color: #a192af; margin-top: 5px; overflow-wrap: anywhere; }
+.diary-body { padding: 0 17px 18px; line-height: 1.9; overflow-wrap: anywhere; }
+.diary-body p { margin: 7px 0; }
+.diary-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.empty-state { text-align: center; padding: 35px 15px; color: #a18eaf; line-height: 1.9; }
+.insight-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; }
+.stat-card { padding: 19px; border-radius: 19px; background: rgba(255,255,255,.76); border: 1px solid #f0e5f5; min-width: 0; }
+.stat-card .stat-icon { font-size: 1.4rem; }
+.stat-card .stat-label { font-size: .83rem; color: #9e8dac; margin: 9px 0 6px; }
+.stat-card .stat-value { font-size: 1.4rem; font-weight: 950; overflow-wrap: anywhere; }
+.stat-card .stat-note { font-size: .8rem; color: #a394af; margin-top: 6px; line-height: 1.7; }
+.chart-list { display: grid; gap: 13px; margin-top: 14px; }
+.chart-row { display: grid; grid-template-columns: 92px minmax(0,1fr) 42px; gap: 10px; align-items: center; font-size: .85rem; }
+.chart-track { height: 11px; border-radius: 99px; background: #f1eaf5; overflow: hidden; }
+.chart-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg,#ffc2dc,#c5b5ff,#a9dff5); transition: width .6s ease; }
+.insight-message { margin-top: 18px; padding: 17px; background: linear-gradient(120deg,#fff3f9,#f2efff); border-radius: 17px; line-height: 1.9; }
+footer { text-align: center; padding: 48px 16px 35px; color: #a392b2; font-size: .85rem; line-height: 2; }
+.toast {
+  position: fixed; z-index: 99; left: 50%; bottom: 25px;
+  transform: translate(-50%, 25px);
+  opacity: 0; pointer-events: none;
+  padding: 13px 21px; border-radius: 999px;
+  background: #fff; box-shadow: 0 9px 30px #8d70a62b;
+  color: #8a6ab0; font-weight: 850; text-align: center;
+  transition: .3s; max-width: calc(100vw - 28px);
+}
+.toast.show { opacity: 1; transform: translate(-50%,0); }
+footer .heart { display: inline-block; animation: twinkle 2s infinite; }
+.hidden { display: none !important; }
+@media (max-width: 760px) {
+  .topbar { flex-wrap: wrap; }
+  .menu-btn { display: inline-block; }
+  .nav { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 0; padding-top: 5px; }
+  .nav.open { display: flex; }
+  .nav a { padding: 11px 7px; border-top: 1px solid #f0e6f4; }
+  .hero { min-height: 490px; padding-top: 65px; }
+  .hero h1 { letter-spacing: -1.5px; }
+  .d1 { left: 5%; } .d2 { right: 5%; } .d3 { left: 7%; } .d4 { right: 7%; }
+  .mood-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .mood-option { min-height: 64px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .mood-option .emoji { margin: 0; }
+  .two-col { grid-template-columns: 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .stat-card { display: grid; grid-template-columns: 32px 1fr; column-gap: 8px; }
+  .stat-card .stat-icon { grid-row: span 3; }
+  .stat-card .stat-label, .stat-card .stat-value, .stat-card .stat-note { margin: 0 0 5px; }
+  .day-cell { min-height: 52px; border-radius: 9px; }
+  .calendar-grid { gap: 4px; }
+  .weekday { font-size: .72rem; }
+}
+@media (max-width: 380px) {
+  .container { width: calc(100% - 22px); }
+  .card { padding: 15px; }
+  .day-cell { min-height: 45px; }
+  .day-cell .day-emoji { font-size: .85rem; }
+  .month-tools { align-items: flex-start; flex-direction: column; }
+  .chart-row { grid-template-columns: 76px minmax(0,1fr) 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home">Color <span>of</span> My Day ✨</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">☰ 選單</button>
+  <nav class="nav" id="nav" aria-label="主要導覽">
+    <a href="#home">🏠 Home</a>
+    <a href="#today">🎨 今日顏色</a>
+    <a href="#calendar">📅 情緒年曆</a>
+    <a href="#diary">💌 我的日記</a>
+    <a href="#insights">🧠 情緒洞察</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <span class="decor d1">⭐</span>
+  <span class="decor d2">🪽</span>
+  <span class="decor d3">🌸</span>
+  <span class="decor d4">☁️</span>
+  <span class="decor d5">✧</span>
+  <span class="decor d6">💗</span>
+  <div class="hero-content">
+    <span class="eyebrow">☀️ A little space just for you ☀️</span>
+    <h1>Color of<br>My Day</h1>
+    <p>今天的你，是什麼顏色？<br>每一天，都有屬於自己的顏色。</p>
+    <p class="subline">收集心情的色彩，也溫柔地收藏每一個自己。</p>
+    <button class="primary-btn" id="heroStart">✨ 找到今天的顏色</button>
+  </div>
+</section>
+
+<div class="container">
+  <aside class="privacy-banner" role="note">
+    <span class="privacy-icon">🔐</span>
+    <div>
+      <strong>關於你的私人空間</strong><br>
+      你的日記只會在這個瀏覽器的本機儲存，不會上傳到網站伺服器。
+      不同個人空間的內容會分開顯示，但這只是本機分類，
+      <strong>不是密碼保護或真正的帳號安全隔離</strong>。
+      使用同一裝置的人仍可能讀取其他空間的資料；請勿存放高度敏感資訊。
+    </div>
+  </aside>
+
+  <section class="section space-panel" aria-labelledby="spaceHeading">
+    <div class="section-head">
+      <h2 id="spaceHeading">🪄 我的私人小宇宙</h2>
+      <p>為不同的日記建立獨立的本機空間。</p>
+    </div>
+    <div class="card">
+      <div class="space-row">
+        <div class="space-field">
+          <label for="spaceSelect">目前使用的空間</label>
+          <select id="spaceSelect" aria-label="切換個人空間"></select>
+        </div>
+        <button class="secondary-btn" id="newSpaceBtn">＋ 建立新空間</button>
+      </div>
+      <div id="newSpaceForm" class="hidden" style="margin-top:16px">
+        <label for="newSpaceName">新空間名稱</label>
+        <div class="space-row">
+          <div class="space-field">
+            <input id="newSpaceName" maxlength="40" placeholder="例如：旅行日記、我的小宇宙">
+          </div>
+          <button class="primary-btn" id="createSpaceBtn">建立空間 ✨</button>
+          <button class="small-btn" id="cancelSpaceBtn">取消</button>
+        </div>
+        <p class="helper">空間名稱只用來辨識日記，不是帳號名稱，也不會替資料加密。</p>
+      </div>
+      <div class="helper" id="spaceSummary" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="section section-anchor" id="today">
+    <div class="section-head">
+      <h2>🎨 Find Your Color</h2>
+      <p>不用急著定義自己的心情，選一個最接近此刻的感受就好。</p>
+    </div>
+
+    <div class="card">
+      <div class="form-group" style="margin-top:0">
+        <label>1. 今天的心情是？</label>
+        <div class="mood-grid" id="moodGrid"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="intensity">2. 這份心情有多強烈？</label>
+        <div class="range-line">
+          <input id="intensity" type="range" min="1" max="10" value="5">
+          <div class="range-number" id="intensityNumber">5</div>
+        </div>
+        <div class="range-labels"><span>1・非常淡</span><span>10・非常強烈</span></div>
+      </div>
+
+      <div class="form-group">
+        <label for="note">3. 如果今天可以用一句話形容，你會說什麼？</label>
+        <textarea id="note" maxlength="1200" placeholder="例如：今天雖然很忙，但傍晚的風吹起來很舒服。"></textarea>
+        <div class="helper"><span id="noteCount">0</span>/1200 字・可以寫很多，也可以只留下一句話。</div>
+      </div>
+
+      <div class="form-group">
+        <label>4. Today's soundtrack 🎧（選填）</label>
+        <div class="two-col">
+          <div>
+            <label for="song" style="font-weight:650">歌曲名稱</label>
+            <input id="song" maxlength="120" placeholder="例如：Golden">
+          </div>
+          <div>
+            <label for="artist" style="font-weight:650">歌手／樂團</label>
+            <input id="artist" maxlength="120" placeholder="例如：Harry Styles">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary-btn" id="generateBtn">✨ 看見我的今日顏色</button>
+        <button class="secondary-btn" id="saveBtn">💌 儲存今日心情</button>
+      </div>
+      <div class="form-status" id="formStatus" aria-live="polite"></div>
+
+      <div class="result">
+        <div class="result-panel" id="resultPanel" style="--c1:#ffd6a5;--c2:#ffb5c2">
+          <div class="result-eyebrow">✧ YOUR COLOR TODAY ✧</div>
+          <h3 id="resultTitle">你的今日顏色，正在等你發現</h3>
+          <div class="color-codes" id="colorCodes">#FFD6A5 <span>→</span> #FFB5C2</div>
+          <p class="result-quote" id="resultQuote">每一種感受都有它存在的理由。慢慢來，今天的你也值得被溫柔對待。</p>
+          <div class="result-meta" id="resultMeta">選擇心情後，讓色彩說說你的故事。</div>
+        </div>
+        <div class="form-actions">
+          <button class="secondary-btn" id="changeColorBtn">✨ 換一個顏色</button>
+        </div>
+        <p class="helper">漸層顏色可以自由更換。儲存後，年曆與日記會保留當次選定的色彩。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-anchor" id="calendar">
+    <div class="section-head">
+      <h2>📅 我的情緒年曆</h2>
+      <p>每一格都是曾經走過的一天，空白也沒有關係。</p>
+    </div>
+    <div class="card">
+      <div class="month-tools">
+        <h3 id="monthTitle">我的心情色彩</h3>
+        <div class="month-nav">
+          <button class="small-btn" id="prevMonth" aria-label="上一個月">← 上個月</button>
+          <button class="small-btn" id="thisMonth">今天</button>
+          <button class="small-btn" id="nextMonth" aria-label="下一個月">下個月 →</button>
+        </div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="legend">
+        <span><i></i> 尚未記錄</span>
+        <span>🌷 已記錄心情</span>
+        <span>💜 外框代表今天</span>
+      </div>
+      <div class="calendar-detail" id="calendarDetail" aria-live="polite">
+        選擇一個日期，就能看看那一天的心情。
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-anchor" id="diary">
+    <div class="section-head">
+      <h2>💌 My Color Diary</h2>
+      <p>你的日子不需要每天都閃閃發亮，每一種顏色都值得被留下。</p>
+    </div>
+    <div class="card">
+      <div id="diaryList" class="diary-list"></div>
+    </div>
+  </section>
+
+  <section class="section section-anchor" id="insights">
+    <div class="section-head">
+      <h2>🧠 My Mood Insights</h2>
+      <p>不替情緒打分數，只陪你慢慢認識自己。</p>
+    </div>
+    <div class="card">
+      <div id="insightContent"></div>
+      <p class="helper">這些摘要只根據目前本機空間中的日記計算，不是心理或醫療診斷。</p>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div>Made of little feelings, sunshine & stardust <span class="heart">♡</span></div>
+  <div>Color of My Day ✨ 每一天，都有屬於自己的顏色。</div>
+  <div>你的心情不必完美，只要真實就很好。</div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/*
+ * Color of My Day
+ * 本機資料格式：
+ * localStorage["colorOfMyDaySpaces"] = 空間清單與各空間日記
+ * localStorage["colorOfMyDayActiveSpace"] = 目前選擇的空間 ID
+ *
+ * 注意：空間分區不是安全隔離。資料沒有加密，也沒有密碼驗證。
+ */
+
+const STORAGE_KEY = "colorOfMyDaySpaces";
+const ACTIVE_KEY = "colorOfMyDayActiveSpace";
+
+const MOODS = [
+  { id:"happy", emoji:"😊", name:"開心", colors:["#FFE7A3","#FFB86B"], quote:"今天的你像陽光一樣，願這份明亮也溫柔地照亮自己。", family:"Sunny Yellow" },
+  { id:"love", emoji:"🥰", name:"幸福", colors:["#FFD6E7","#FF9EBE"], quote:"幸福不一定是很大的事情，有時候只是心裡有一個柔軟的位置。", family:"Cotton Pink" },
+  { id:"calm", emoji:"😌", name:"平靜", colors:["#C8EDFF","#B9B6F2"], quote:"不用每一天都努力發光。安靜地呼吸，也是一種很好的生活。", family:"Sky Blue" },
+  { id:"hope", emoji:"🌸", name:"期待", colors:["#FFE0F1","#D7C4FF"], quote:"有一些美好的事情正在前方等你，不必急著抵達。", family:"Dreamy Lilac" },
+  { id:"touched", emoji:"🥹", name:"感動", colors:["#F9D3E7","#C6D8FF"], quote:"願意被世界觸動，是一件很珍貴的事。請好好珍惜這份柔軟。", family:"Blush Lavender" },
+  { id:"sad", emoji:"😔", name:"難過", colors:["#C8D7F5","#AAB9E6"], quote:"你不必急著好起來。允許自己難過，也是照顧自己的方式。", family:"Rainy Blue" },
+  { id:"anxious", emoji:"😵‍💫", name:"焦慮", colors:["#BDB7F4","#7776BD"], quote:"先把世界縮小到眼前這一刻。一次只做一件事，就已經很好。", family:"Quiet Indigo" },
+  { id:"angry", emoji:"😡", name:"生氣", colors:["#FFC7BC","#F28F9B"], quote:"你的感受值得被聽見。先讓自己有一點空間，再決定接下來怎麼做。", family:"Coral Rose" },
+  { id:"tired", emoji:"😴", name:"疲憊", colors:["#C8D8E8","#D9C8ED"], quote:"休息不是偷懶。今天的你已經走了很長一段路，可以停下來了。", family:"Misty Blue" },
+  { id:"miss", emoji:"💭", name:"想念", colors:["#D8D4FF","#B8DDF4"], quote:"想念代表某些人事物曾經在心裡留下溫柔的痕跡。", family:"Cloud Lavender" }
+];
+
+const PALETTES = {
+  happy:[["#FFE7A3","#FFB86B"],["#FFF0A8","#FFC98F"],["#FFE8C6","#FFAA8C"],["#FFF2B8","#F7B7D2"],["#FFE0A8","#FFCFB8"]],
+  love:[["#FFD6E7","#FF9EBE"],["#FFE0EA","#F5A4D0"],["#FFC7D8","#EFB6F2"],["#FFE4F2","#FFA8B8"]],
+  calm:[["#C8EDFF","#B9B6F2"],["#D7F0FF","#B4D5F6"],["#C6E6F3","#D9D1FF"],["#BFE7E5","#BFC8F5"]],
+  hope:[["#FFE0F1","#D7C4FF"],["#FFD9EA","#C5D7FF"],["#FAD9FF","#BFE9FF"],["#FFE7D5","#E4C8FF"]],
+  touched:[["#F9D3E7","#C6D8FF"],["#FFE1EA","#C4E0F7"],["#F4D8F4","#C9D7FF"]],
+  sad:[["#C8D7F5","#AAB9E6"],["#D2DFFF","#B8C4E8"],["#C7D6E9","#C4C3EE"]],
+  anxious:[["#BDB7F4","#7776BD"],["#CBC7F8","#9894D9"],["#C9C5EB","#8D9ACD"]],
+  angry:[["#FFC7BC","#F28F9B"],["#FFD6C9","#F6A7AF"],["#FFC9D4","#ED9FAE"]],
+  tired:[["#C8D8E8","#D9C8ED"],["#D3E0E8","#D8D2F0"],["#C4D7E5","#D4C8E6"]],
+  miss:[["#D8D4FF","#B8DDF4"],["#D7D4F4","#B9D9EA"],["#D8D2F3","#C7E7F3"]]
+};
+
+const $ = id => document.getElementById(id);
+const todayString = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+};
+const makeId = () => "space_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,8);
+const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+})[c]);
+const safeColor = value => /^#[0-9a-fA-F]{6}$/.test(value || "") ? value : "#E9D8F5";
+const moodById = id => MOODS.find(m => m.id === id) || MOODS[0];
+const formatDate = date => {
+  const [y,m,d] = date.split("-").map(Number);
+  return `${y} 年 ${m} 月 ${d} 日`;
+};
+const todayMood = () => MOODS.find(m => m.id === selectedMood) || MOODS[0];
+
+let spaces = {};
+let activeSpaceId = "";
+let selectedMood = "happy";
+let selectedColors = ["#FFE7A3","#FFB86B"];
+let colorIndex = 0;
+let previewReady = false;
+let calendarCursor = new Date();
+let selectedCalendarDate = todayString();
+let toastTimer = null;
+
+function createDefaultSpace(name) {
+  const id = makeId();
+  return { id, name, entries: {} };
+}
+
+function loadStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        spaces = parsed;
+      }
+    }
+  } catch (error) {
+    console.warn("無法讀取本機日記資料。", error);
+  }
+
+  if (!spaces || typeof spaces !== "object" || Array.isArray(spaces)) spaces = {};
+
+  // 清理格式不正確的空間；不主動刪除有效紀錄。
+  for (const [id, space] of Object.entries(spaces)) {
+    if (!space || typeof space !== "object") {
+      delete spaces[id];
+      continue;
+    }
+    if (!space.entries || typeof space.entries !== "object" || Array.isArray(space.entries)) {
+      space.entries = {};
+    }
+    if (typeof space.name !== "string" || !space.name.trim()) space.name = "我的小宇宙";
+    space.id = id;
+  }
+
+  if (Object.keys(spaces).length === 0) {
+    const first = createDefaultSpace("我的小宇宙");
+    spaces[first.id] = first;
+    activeSpaceId = first.id;
+    persistAll();
+  } else {
+    const savedActive = localStorage.getItem(ACTIVE_KEY);
+    activeSpaceId = savedActive && spaces[savedActive]
+      ? savedActive
+      : Object.keys(spaces)[0];
+  }
+  persistAll();
+}
+
+function persistAll() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(spaces));
+    localStorage.setItem(ACTIVE_KEY, activeSpaceId);
+    return true;
+  } catch (error) {
+    console.error("本機儲存失敗。", error);
+    showToast("⚠️ 儲存空間不足或瀏覽器不允許本機儲存，請先備份資料。");
+    return false;
+  }
+}
+
+function currentSpace() {
+  return spaces[activeSpaceId];
+}
+function currentEntries() {
+  return currentSpace()?.entries || {};
+}
+function sortedEntries() {
+  return Object.values(currentEntries()).sort((a,b) => b.date.localeCompare(a.date));
+}
+
+function showToast(message) {
+  $("toast").textContent = message;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("show"), 3000);
+}
+
+function renderSpaceSelector() {
+  const select = $("spaceSelect");
+  select.innerHTML = Object.values(spaces).map(space =>
+    `<option value="${escapeHTML(space.id)}">${escapeHTML(space.name)}</option>`
+  ).join("");
+  select.value = activeSpaceId;
+  const count = Object.keys(currentEntries()).length;
+  $("spaceSummary").textContent =
+    `目前空間「${currentSpace().name}」有 ${count} 筆不同日期的紀錄。切換空間不會刪除原有日記。`;
+}
+
+function renderMoods() {
+  $("moodGrid").innerHTML = MOODS.map(mood => `
+    <button type="button" class="mood-option ${mood.id === selectedMood ? "selected" : ""}"
+      data-mood="${mood.id}" aria-pressed="${mood.id === selectedMood}">
+      <span class="emoji">${mood.emoji}</span>
+      <span class="mood-label">${mood.name}</span>
+    </button>
+  `).join("");
+}
+
+function updateIntensity() {
+  $("intensityNumber").textContent = $("intensity").value;
+}
+
+function pickPalette(moodId, avoidCurrent = true) {
+  const palettes = PALETTES[moodId] || PALETTES.happy;
+  let candidates = palettes;
+  if (avoidCurrent && palettes.length > 1) {
+    candidates = palettes.filter(pair =>
+      pair[0] !== selectedColors[0] || pair[1] !== selectedColors[1]
+    );
+  }
+  const pair = candidates[Math.floor(Math.random() * candidates.length)] || palettes[0];
+  selectedColors = [...pair];
+  colorIndex++;
+}
+
+function intensityAdjustedColors(pair, intensity) {
+  // 保留每種心情的基礎色調，強度只做輕微明暗調整。
+  const factor = 0.035 * (Number(intensity) - 5);
+  return pair.map(color => adjustColor(color, factor));
+}
+
+function adjustColor(hex, factor) {
+  const value = safeColor(hex).slice(1);
+  const rgb = [0,2,4].map(i => parseInt(value.slice(i,i+2),16));
+  const adjusted = rgb.map(channel => {
+    const target = factor > 0 ? 255 : 0;
+    return Math.round(Math.max(0, Math.min(255, channel + (target-channel)*Math.abs(factor))));
+  });
+  return "#" + adjusted.map(n => n.toString(16).padStart(2,"0")).join("").toUpperCase();
+}
+
+function updateResult(animate = false) {
+  const mood = todayMood();
+  const intensity = Number($("intensity").value);
+  const pair = intensityAdjustedColors(selectedColors, intensity);
+  const panel = $("resultPanel");
+  panel.style.setProperty("--c1", pair[0]);
+  panel.style.setProperty("--c2", pair[1]);
+  if (animate) {
+    panel.classList.remove("color-change");
+    void panel.offsetWidth;
+    panel.classList.add("color-change");
+  }
+  $("resultTitle").textContent = `${mood.emoji} ${mood.name}的色彩`;
+  $("colorCodes").innerHTML =
+    `<span>${pair[0]}</span><span>→</span><span>${pair[1]}</span>`;
+  $("resultQuote").textContent = mood.quote;
+  $("resultMeta").textContent =
+    `色彩靈感：${mood.family} · 心情強度 ${intensity}/10`;
+  previewReady = true;
+}
+
+function readForm() {
+  const mood = todayMood();
+  const pair = intensityAdjustedColors(selectedColors, Number($("intensity").value));
+  return {
+    date: todayString(),
+    mood: mood.id,
+    moodName: mood.name,
+    emoji: mood.emoji,
+    intensity: Number($("intensity").value),
+    color1: pair[0],
+    color2: pair[1],
+    note: $("note").value.trim(),
+    song: $("song").value.trim(),
+    artist: $("artist").value.trim(),
+    family: mood.family,
+    quote: mood.quote,
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function loadTodayIntoForm() {
+  const entry = currentEntries()[todayString()];
+  if (!entry) {
+    $("note").value = "";
+    $("song").value = "";
+    $("artist").value = "";
+    $("intensity").value = "5";
+    selectedMood = "happy";
+    selectedColors = [...PALETTES.happy[0]];
+    colorIndex = 0;
+    $("formStatus").textContent = "今天還沒有紀錄，來為今天選一個顏色吧。";
+  } else {
+    selectedMood = entry.mood || "happy";
+    $("intensity").value = String(entry.intensity || 5);
+    $("note").value = entry.note || "";
+    $("song").value = entry.song || "";
+    $("artist").value = entry.artist || "";
+    selectedColors = [safeColor(entry.color1), safeColor(entry.color2)];
+    $("formStatus").textContent = "已載入今天的紀錄；儲存後會更新同一天的內容。";
+  }
+  $("noteCount").textContent = $("note").value.length;
+  updateIntensity();
+  renderMoods();
+  updateResult();
+}
+
+function saveToday() {
+  const entry = readForm();
+  const existed = Boolean(currentEntries()[entry.date]);
+  currentEntries()[entry.date] = entry;
+  if (!persistAll()) {
+    if (!existed) delete currentEntries()[entry.date];
+    return;
+  }
+  renderAll();
+  $("formStatus").textContent = existed
+    ? "💗 今天的紀錄已更新。每個日期只保留一筆紀錄。"
+    : "✨ 今日顏色已儲存！你可以在年曆和日記中找到它。";
+  showToast(existed ? "💗 今日心情已更新！" : "✨ Your color has been saved.");
+}
+
+function renderCalendar() {
+  const year = calendarCursor.getFullYear();
+  const month = calendarCursor.getMonth();
+  $("monthTitle").textContent = `${year} 年 ${month + 1} 月`;
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const weekdays = ["日","一","二","三","四","五","六"];
+  let html = weekdays.map(day => `<div class="weekday">週${day}</div>`).join("");
+
+  for (let i = 0; i < firstDay; i++) html += `<div aria-hidden="true"></div>`;
+
+  const entries = currentEntries();
+  const today = todayString();
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const entry = entries[date];
+    const selected = date === selectedCalendarDate;
+    const isToday = date === today;
+    const background = entry
+      ? `background:linear-gradient(145deg,${safeColor(entry.color1)},${safeColor(entry.color2)});`
+      : "";
+    const moodEmoji = entry ? (entry.emoji || moodById(entry.mood).emoji) : "";
+    const label = entry
+      ? `${date}，${entry.moodName || moodById(entry.mood).name}，強度 ${entry.intensity}/10`
+      : `${date}，尚未記錄`;
+    html += `
+      <button type="button" class="day-cell ${entry ? "has-entry" : "empty"} ${selected ? "selected-day" : ""} ${isToday ? "today" : ""}"
+        data-date="${date}" style="${background}" aria-label="${escapeHTML(label)}" aria-pressed="${selected}">
+        <span class="day-num">${day}</span>
+        <span class="day-emoji">${moodEmoji}</span>
+      </button>`;
+  }
+  $("calendarGrid").innerHTML = html;
+  renderCalendarDetail(selectedCalendarDate);
+}
+
+function renderCalendarDetail(date) {
+  const entry = currentEntries()[date];
+  const target = $("calendarDetail");
+  if (!entry) {
+    target.innerHTML = `<strong>📅 ${escapeHTML(formatDate(date))}</strong><p>這一天還沒有留下心情。空白也是你故事的一部分。🌷</p>`;
+    return;
+  }
+  target.innerHTML = `
+    <strong>${escapeHTML(entry.emoji || moodById(entry.mood).emoji)} ${escapeHTML(formatDate(date))} · ${escapeHTML(entry.moodName || moodById(entry.mood).name)}</strong>
+    <p>🎨 <span style="display:inline-block;width:13px;height:13px;border-radius:4px;vertical-align:middle;background:linear-gradient(135deg,${safeColor(entry.color1)},${safeColor(entry.color2)})"></span>
+    ${safeColor(entry.color1)} → ${safeColor(entry.color2)}</p>
+    <p>💗 心情強度：${Number(entry.intensity) || 5}/10</p>
+    <p>💭 ${escapeHTML(entry.note || "今天沒有留下文字，但這份感受也值得被記住。")}</p>
+    ${entry.song || entry.artist ? `<p>🎧 ${escapeHTML([entry.song,entry.artist].filter(Boolean).join(" — "))}</p>` : ""}
+    <button class="small-btn" type="button" data-edit-date="${escapeHTML(date)}">編輯這一天</button>`;
+}
+
+function renderDiary() {
+  const entries = sortedEntries();
+  if (!entries.length) {
+    $("diaryList").innerHTML = `<div class="empty-state">💌<br>你的第一篇彩色日記正在等你。<br>先記錄今天的心情吧！</div>`;
+    return;
+  }
+  $("diaryList").innerHTML = entries.map((entry, index) => {
+    const mood = moodById(entry.mood);
+    const title = entry.moodName || mood.name;
+    const songLine = [entry.song,entry.artist].filter(Boolean).join(" — ");
+    return `
+      <details class="diary-entry" ${index === 0 ? "open" : ""}>
+        <summary>
+          <span class="diary-swatch" style="background:linear-gradient(135deg,${safeColor(entry.color1)},${safeColor(entry.color2)})"></span>
+          <span class="diary-title">
+            <strong>${escapeHTML(entry.emoji || mood.emoji)} ${escapeHTML(formatDate(entry.date))} · ${escapeHTML(title)}</strong>
+            <small>${escapeHTML(entry.note || "今天選擇把感受留在心裡。")}</small>
+          </span>
+        </summary>
+        <div class="diary-body">
+          <p>🎨 今日漸層：${safeColor(entry.color1)} → ${safeColor(entry.color2)}</p>
+          <p>💗 心情強度：${Number(entry.intensity) || 5}/10</p>
+          <p>💭 ${escapeHTML(entry.note || "沒有文字紀錄。")}</p>
+          ${songLine ? `<p>🎧 今日配樂：${escapeHTML(songLine)}</p>` : ""}
+          <div class="diary-actions">
+            <button class="small-btn" type="button" data-edit-date="${escapeHTML(entry.date)}">編輯這一天</button>
+            <button class="small-btn" type="button" data-delete-date="${escapeHTML(entry.date)}">刪除這筆紀錄</button>
+          </div>
+        </div>
+      </details>`;
+  }).join("");
+}
+
+function renderInsights() {
+  const entries = sortedEntries();
+  const container = $("insightContent");
+  if (entries.length < 3) {
+    container.innerHTML = `
+      <div class="empty-state">🌷<br><strong>再多記幾天，我們就能一起看看你的情緒小宇宙 ✨</strong>
+      <br>至少記錄 3 個不同日期，就能開始查看簡單的情緒摘要。
+      <br>目前已記錄 ${entries.length} 天。</div>`;
+    return;
+  }
+
+  const counts = {};
+  let intensitySum = 0;
+  const colors = {};
+  entries.forEach(entry => {
+    const id = entry.mood || "happy";
+    counts[id] = (counts[id] || 0) + 1;
+    intensitySum += Number(entry.intensity) || 5;
+    const family = entry.family || moodById(id).family;
+    colors[family] = (colors[family] || 0) + 1;
+  });
+  const mostMoodId = Object.keys(counts).sort((a,b) => counts[b]-counts[a])[0];
+  const mostMood = moodById(mostMoodId);
+  const moodPct = Math.round(counts[mostMoodId] / entries.length * 100);
+  const avg = (intensitySum / entries.length).toFixed(1);
+  const mostColor = Object.keys(colors).sort((a,b) => colors[b]-colors[a])[0];
+  const topMoods = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,5);
+  const bars = topMoods.map(([id,count]) => {
+    const mood = moodById(id);
+    const percent = Math.round(count / entries.length * 100);
+    return `<div class="chart-row">
+      <span>${mood.emoji} ${mood.name}</span>
+      <div class="chart-track"><div class="chart-fill" style="width:${percent}%"></div></div>
+      <strong>${percent}%</strong>
+    </div>`;
+  }).join("");
+
+  let message;
+  if (mostMoodId === "happy" || mostMoodId === "love" || mostMoodId === "hope") {
+    message = "☀️ 最近你的日記裡有不少明亮、溫暖的時刻。願你在忙碌中，也能為自己留住這些小小的快樂。";
+  } else if (mostMoodId === "calm" || mostMoodId === "touched" || mostMoodId === "miss") {
+    message = "🌷 最近你的心情多了一點柔軟與安靜。慢慢感受生活的細節，也別忘了好好照顧自己。";
+  } else if (mostMoodId === "tired" || mostMoodId === "sad") {
+    message = "☁️ 最近日記裡出現了一些疲憊或低落的時刻。這不是你的失敗；如果可以，給自己一些休息、支持與喘息的空間。";
+  } else if (mostMoodId === "anxious" || mostMoodId === "angry") {
+    message = "🫧 最近的心情可能比較強烈。試著留意哪些事情讓你有這些感受，也允許自己暫停一下，再慢慢整理。";
+  } else {
+    message = "🌈 你的日記收藏了多種不同的心情。情緒本來就會變化，每一種感受都能幫助你更了解自己。";
+  }
+
+  container.innerHTML = `
+    <div class="insight-grid">
+      <div class="stat-card"><div class="stat-icon">🌷</div><div class="stat-label">最常出現的心情</div>
+        <div class="stat-value">${mostMood.emoji} ${mostMood.name}</div><div class="stat-note">約佔紀錄的 ${moodPct}%</div></div>
+      <div class="stat-card"><div class="stat-icon">🎨</div><div class="stat-label">常見的色彩家族</div>
+        <div class="stat-value">${escapeHTML(mostColor)}</div><div class="stat-note">來自你儲存的漸層色彩</div></div>
+      <div class="stat-card"><div class="stat-icon">💗</div><div class="stat-label">平均心情強度</div>
+        <div class="stat-value">${avg}/10</div><div class="stat-note">已記錄 ${entries.length} 個不同日期</div></div>
+    </div>
+    <div style="margin-top:24px">
+      <h3 style="font-size:1.05rem">🌈 心情分布</h3>
+      <div class="chart-list">${bars}</div>
+    </div>
+    <div class="insight-message">${message}</div>`;
+}
+
+function renderAll() {
+  renderSpaceSelector();
+  renderCalendar();
+  renderDiary();
+  renderInsights();
+}
+
+function editEntry(date) {
+  const entry = currentEntries()[date];
+  if (!entry) return;
+  if (date !== todayString()) {
+    const shouldEditToday = confirm(
+      `這筆紀錄日期是 ${date}。\n目前的編輯表單只能儲存今天的日期。\n\n要先複製這筆內容到今天的表單嗎？原本日期的紀錄不會被修改。`
+    );
+    if (!shouldEditToday) return;
+  }
+  selectedMood = entry.mood || "happy";
+  selectedColors = [safeColor(entry.color1), safeColor(entry.color2)];
+  $("intensity").value = String(entry.intensity || 5);
+  $("note").value = entry.note || "";
+  $("song").value = entry.song || "";
+  $("artist").value = entry.artist || "";
+  $("noteCount").textContent = $("note").value.length;
+  updateIntensity();
+  renderMoods();
+  updateResult();
+  $("formStatus").textContent = date === todayString()
+    ? "已載入今天的紀錄，修改後儲存即可更新。"
+    : `已將 ${date} 的內容複製到今天的表單；儲存會建立或更新今天的紀錄。`;
+  $("today").scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+function deleteEntry(date) {
+  const entry = currentEntries()[date];
+  if (!entry) return;
+  const ok = confirm(`確定要刪除 ${date} 的心情紀錄嗎？\n這個動作無法復原。`);
+  if (!ok) return;
+  delete currentEntries()[date];
+  if (!persistAll()) return;
+  if (date === todayString()) loadTodayIntoForm();
+  renderAll();
+  showToast("🫧 這筆紀錄已刪除。");
+}
+
+function changeSpace(id) {
+  if (!spaces[id] || id === activeSpaceId) return;
+  activeSpaceId = id;
+  persistAll();
+  selectedCalendarDate = todayString();
+  calendarCursor = new Date();
+  loadTodayIntoForm();
+  renderAll();
+  showToast(`✨ 已切換到「${currentSpace().name}」`);
+}
+
+$("menuBtn").addEventListener("click", () => {
+  const nav = $("nav");
+  const open = nav.classList.toggle("open");
+  $("menuBtn").setAttribute("aria-expanded", String(open));
+});
+$("nav").addEventListener("click", event => {
+  if (event.target.closest("a")) {
+    $("nav").classList.remove("open");
+    $("menuBtn").setAttribute("aria-expanded", "false");
+  }
+});
+$("heroStart").addEventListener("click", () => {
+  $("today").scrollIntoView({ behavior:"smooth", block:"start" });
+  setTimeout(() => $("moodGrid").querySelector("button")?.focus({preventScroll:true}), 350);
+});
+$("spaceSelect").addEventListener("change", event => changeSpace(event.target.value));
+$("newSpaceBtn").addEventListener("click", () => {
+  $("newSpaceForm").classList.remove("hidden");
+  $("newSpaceName").focus();
+});
+$("cancelSpaceBtn").addEventListener("click", () => {
+  $("newSpaceForm").classList.add("hidden");
+  $("newSpaceName").value = "";
+});
+$("createSpaceBtn").addEventListener("click", () => {
+  const name = $("newSpaceName").value.trim();
+  if (!name) {
+    showToast("請先輸入空間名稱 🌷");
+    $("newSpaceName").focus();
+    return;
+  }
+  if (Object.values(spaces).some(s => s.name.toLowerCase() === name.toLowerCase())) {
+    showToast("這個空間名稱已經存在，換一個名字吧。");
+    return;
+  }
+  const space = createDefaultSpace(name);
+  spaces[space.id] = space;
+  activeSpaceId = space.id;
+  if (!persistAll()) {
+    delete spaces[space.id];
+    return;
+  }
+  $("newSpaceName").value = "";
+  $("newSpaceForm").classList.add("hidden");
+  selectedCalendarDate = todayString();
+  calendarCursor = new Date();
+  loadTodayIntoForm();
+  renderAll();
+  showToast(`🌸 已建立「${name}」的私人空間`);
+});
+$("newSpaceName").addEventListener("keydown", event => {
+  if (event.key === "Enter") $("createSpaceBtn").click();
+});
+
+$("moodGrid").addEventListener("click", event => {
+  const button = event.target.closest("[data-mood]");
+  if (!button) return;
+  selectedMood = button.dataset.mood;
+  colorIndex = 0;
+  pickPalette(selectedMood, false);
+  renderMoods();
+  updateResult(true);
+});
+$("intensity").addEventListener("input", () => {
+  updateIntensity();
+  updateResult();
+});
+$("note").addEventListener("input", () => {
+  $("noteCount").textContent = $("note").value.length;
+});
+$("generateBtn").addEventListener("click", () => {
+  updateResult(true);
+  $("formStatus").textContent = "你的今日漸層已準備好。喜歡的話，可以儲存下來。";
+});
+$("changeColorBtn").addEventListener("click", () => {
+  pickPalette(selectedMood, true);
+  updateResult(true);
+  showToast("✨ 換了一組新的心情漸層！");
+});
+$("saveBtn").addEventListener("click", saveToday);
+
+$("prevMonth").addEventListener("click", () => {
+  calendarCursor = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth()-1, 1);
+  selectedCalendarDate = "";
+  renderCalendar();
+});
+$("nextMonth").addEventListener("click", () => {
+  calendarCursor = new Date(calendarCursor.getFullYear(), calendarCursor.getMonth()+1, 1);
+  selectedCalendarDate = "";
+  renderCalendar();
+});
+$("thisMonth").addEventListener("click", () => {
+  calendarCursor = new Date();
+  selectedCalendarDate = todayString();
+  renderCalendar();
+});
+
+$("calendarGrid").addEventListener("click", event => {
+  const button = event.target.closest("[data-date]");
+  if (!button) return;
+  selectedCalendarDate = button.dataset.date;
+  renderCalendar();
+});
+document.addEventListener("click", event => {
+  const editButton = event.target.closest("[data-edit-date]");
+  if (editButton) {
+    editEntry(editButton.dataset.editDate);
+    return;
+  }
+  const deleteButton = event.target.closest("[data-delete-date]");
+  if (deleteButton) deleteEntry(deleteButton.dataset.deleteDate);
+});
+
+loadStorage();
+renderSpaceSelector();
+renderMoods();
+loadTodayIntoForm();
+renderAll();
+</script>
+</body>
+</html>
